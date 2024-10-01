@@ -800,7 +800,7 @@ END;
          103         AMEX
       ````
 
-      **Note:** The `CUSTOMER_SUMMARY` output does not show the asterisks you see when querying the table directly. This is because the view, `CUSTOMER_SUMMARY` uses an Oracle SQL function (`CASE`) to collapse five columns into a single column. For performance, Data Redaction uses a full redaction policy instead. 
+      **Note:** The `CUSTOMER_SUMMARY` output does not show the asterisks you see when querying the table directly. This is because the view, `CUSTOMER_SUMMARY` uses an Oracle SQL function (`CASE`) to collapse five columns into a single column. To ensure actual data isn't exposed unintentionally, Data Redaction uses a full redaction policy when a SQL function is used. 
 
 
 You have demonstrated how you can create different redaction policies and use different regular expression and partial redaction functions.  You have also learned there are times when Data Redaction applies full redaction for performance or security reasons. 
