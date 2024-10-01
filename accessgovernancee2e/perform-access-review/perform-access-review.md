@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**Access reviews** can be carried out from the **Oracle Access Governance** console by users with the following roles, which are based on data attributes derived from the connected system:
+**Access reviews** can be carried out from the **Oracle Access Governance** console by users with the following roles, which are based on data attributes derived from the Orchestrated system:
 
 * **User** (review access assigned to me/self)
 * **Manager** (review access assigned to users in my team)
@@ -13,7 +13,7 @@ Based on the workflow setup in the first lab **Create Access Review Campaign**, 
 * Persona: Employee and User Manager
 
 Watch the video below for a quick walk-through of the lab.
-[Perform Access Review](videohub:1_kui9p56v)
+[Perform Access Review](videohub:1_jteb4r9y)
 
 ### Objectives
 
@@ -21,10 +21,17 @@ In this lab, you will:
 * Accept or revoke the **access review task** assigned to me from the **certification campaign** as an **employee user**
 * Accept or revoke the **access review task** assigned to me from the **certification campaign** as a **user manager**
 
+
+### Prerequisites
+This lab assumes you have:
+- A valid Oracle OCI tenancy, with OCI administrator privileges.
+
 ## Task 1: Login Oracle Access Governance as Employee User
 
-1. If you are still login as a user from the previous lab, please make sure you log out and log in again. Ensure you have **default** identity domain selected.
-2. Log in to **Oracle Access Governance** as an **employee user - Mark Hernandez** with the username and password mentioned below.
+1. From your browser, navigate to the Oracle Access Governance Console using the URL specified in *Lab 5: Task 1: Step 4*
+
+
+2. Enter **Oracle Access Governance Administrator** username and password (Pamela Green)
 
     **Username:**
     ```
@@ -32,11 +39,11 @@ In this lab, you will:
     ```
 
     **Password:**
-    ```
-    <copy>Oracl@123456</copy>
-    ```
+    
+    The password you have set for the user in *Lab 1: Task 2: Step 5*
 
-	![Access Governance Login](images/user-ag-logon.png)
+
+  You will be navigated to the home page of your Oracle Access Governance Console.
 3. You should see the **Oracle Access Governance** main dashboard. **Please note data on Oracle Access Governance main dashboard in your assigned system might be different from LiveLabs step screenshot.**
   ![Access Governance Homepage](images/user-ag-homepage.png)
 
@@ -67,20 +74,22 @@ In this lab, you will:
 
 ## Task 3: Login Oracle Access Governance as User Manager
 
-1. If you are still login as a user from the previous lab, please make sure you log out and log in again. Ensure you have **Default** identity domain selected.
-2. Log in to **Oracle Access Governance** as a **Manager User - Harlan Bullard** with the username and password mentioned below.
+1. From your browser, navigate to the Oracle Access Governance Console using the URL specified in *Lab 5: Task 1: Step 4*
 
-  **Username:**
+
+2. Enter **Oracle Access Governance Administrator** username and password (Pamela Green)
+
+    **Username:**
     ```
     <copy>harlan.bullard</copy>
     ```
 
-  **Password:**
-    ```
-    <copy>Oracl@123456</copy>
-    ```
+    **Password:**
+    
+    The password you have set for the user in *Lab 1: Task 2: Step 5*
 
-	![Manager Access Governance Login](images/manager-ag-logon.png)
+
+  You will be navigated to the home page of your Oracle Access Governance Console.
 
 3. You should see the **Oracle Access Governance** main dashboard. **Please note data on Oracle Access Governance main dashboard in your assigned system might be different from LiveLabs step screenshot.**
   ![Manager Access Governance Homepage](images/manager-ag-homepage.png)
@@ -102,7 +111,7 @@ In this lab, you will:
     - Access review trail, you should see the **justification** entered by your employee self-reviewer in the previous task. 
     - Recent changes in user’s profile
   ![AI/ML Insights](images/manager-access-review-insights-manager.png)
-3. Decide (Accept or Revoke): Select the *Access Review* for the user - *Mark Hernandez* and **Revoke** this access privilege. In this lab, you may pick one access review with **Recommend Review**, view the detail, and **Revoke** it, which will trigger the auto-remediation process in the **Oracle Access Governance** system. 
+3. Decide (Accept or Revoke): Select the *Access Review* for the user - *Mark Hernandez* with *Assignment Type* as *Account* and **Revoke** this access privilege. In this lab, you may pick one access review with **Recommend Review**, view the detail, and **Revoke** it, which will trigger the auto-remediation process in the **Oracle Access Governance** system. 
 
 4. During this lab, you have navigated the **Oracle Access Governance** console to select **access review tasks** assigned to you as an **employee** and **manager user**, view **prescriptive analytics** and **recommendation** proposed by **Oracle Access Governance**, and make informed decisions **Accept** or **Revoke** for review tasks based on **peer group analysis** and **insights**. 
 
@@ -124,14 +133,14 @@ In this lab, you will:
       ```
 
   ![OIG Login Page](images/oig-logon.png)
-2. You should see the **Oracle Identity Governance** main dashboard. Click on Manage -> Users.
+2. You should see the **Oracle Identity Governance** main dashboard. Click on **Manage -> Users**
   ![OIG Homepage](images/oig-homepage.png)
 
 3. Click Users. Search for User **Mark Hernandez**.Note **Figma** application entitlements present for the user. 
 
 ![Access Governance Homepage](images/initial-user-details.png)
 
-4. Click on **Provisioning Tasks -> Manual Fulfillment** . The Manual Fulfillment page is displayed. Notice that the Mnaual Fulfillment request for the user is displayed is displayed.
+4. Click on **Self Service -> Provisioning Tasks -> Manual Fulfillment** . The Manual Fulfillment page is displayed. Notice that the Manual Fulfillment request for the user is displayed is displayed.
 ![Provisioning tasks list](images/provisioning-tasks.png)
 5. Click on the  request. The request details page displays a detailed view of the request in the Details section, Content section and the Cart Items section. It allows complete management of the listed task. Click on Complete.
 ![Manual Fulfillment requests](images/manual-fulfillment.png)
@@ -141,8 +150,7 @@ Now remediation is completed with approval and manual provisioning.
 7. Notice the **Figma** application entitlements have been removed for the user **Mark Hernandez** 
 ![User Details OIG](images/user-details.png)
 
-8. Login in to **Oracle Access Governance** as the **Campaign Administrator** to view the Completion of review tasks.
-9. You may now **proceed to the next lab**. 
+    You may now **proceed to the next lab.**
 
 ## Learn More
 
@@ -152,5 +160,6 @@ Now remediation is completed with approval and manual provisioning.
 * [Oracle Access Governance FAQ](https://www.oracle.com/security/cloud-security/access-governance/faq/)
 
 ## Acknowledgments
-* **Author** - Anuj Tripathi, Indira Balasundaram, Anbu Anbarasu 
+* **Authors** - Anuj Tripathi, Indira Balasundaram, Anbu Anbarasu 
+* **Contributors** - Edward Lu 
 * **Last Updated By/Date** - Anbu Anbarasu, Cloud Platform COE, January 2023

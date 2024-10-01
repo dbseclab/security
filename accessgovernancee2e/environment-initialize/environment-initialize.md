@@ -6,6 +6,9 @@ In this lab we will review the environment setup and start all services required
 
 *Estimated Lab Time*: 15 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Environment intialize](videohub:1_9mdts598)
+
 ### Objectives
 
 In this lab, you will:
@@ -17,6 +20,8 @@ In this lab, you will:
 ### Prerequisites
 This lab assumes you have:
 - A valid Oracle OCI tenancy, with OCI administrator privileges. 
+
+    *Note:* From this lab onwards until the completetion of the workshop, all the steps need to be performed inside the Workshop URL only. 
 
 
 ## Task 1: Validate Docker is up and running
@@ -107,7 +112,7 @@ This lab assumes you have:
 
  
 
-You may now **proceed to the next lab.**
+    You may now **proceed to the next lab.**
 
 ## Learn More
 
@@ -117,5 +122,6 @@ You may now **proceed to the next lab.**
 * [Oracle Access Governance FAQ](https://www.oracle.com/security/cloud-security/access-governance/faq/)
 
 ## Acknowledgments
-* **Author** - Anuj Tripathi, Indira Balasundaram, Anbu Anbarasu 
+* **Authors** - Anuj Tripathi, Indira Balasundaram, Anbu Anbarasu 
+* **Contributors** - Edward Lu
 * **Last Updated By/Date** - Anbu Anbarasu, Cloud Platform COE, January 2023

@@ -16,7 +16,7 @@ This lab walks you through the steps to get started using **Oracle Access Govern
 - **Users** and **user managers** to validate access assigned to self and their direct reports, respectively. 
 
 
-*Estimated Time:* 60 minutes
+*Estimated Time:* 3 Hours
 
 
 ### Objectives
@@ -44,5 +44,5 @@ This lab assumes you have:
 * [Oracle Access Governance Announcement Blog](https://blogs.oracle.com/cloudsecurity/post/intelligent-cloud-delivered-access-governance-with-prescriptive-analytics)
 
 ## Acknowledgments
-* **Author** - Anuj Tripathi, Indira Balasundaram, Anbu Anbarasu 
+* **Authors** - Anuj Tripathi, Indira Balasundaram, Anbu Anbarasu 
 * **Last Updated By/Date** - Anbu Anbarasu, Cloud Platform COE, January 2023
