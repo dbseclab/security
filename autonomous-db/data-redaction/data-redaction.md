@@ -819,14 +819,15 @@ For example, in this task, you will show the `CUST_CREDIT_LIMIT` column values t
       ````
       <copy>
 BEGIN
-  DBMS_REDACT.CREATE_POLICY_EXPRESSION(
-    policy_expression_name => 'REDACT_UNLESS_ANALYTICS',
-    expression => 'SYS_CONTEXT(''USERENV'', ''CLIENT_IDENTIFIER'') != ''AnalyticsServer''');
+DBMS_REDACT.CREATE_POLICY_EXPRESSION(
+policy_expression_name => 'REDACT_UNLESS_ANALYTICS',
+expression => 'SYS_CONTEXT(''USERENV'', ''CLIENT_IDENTIFIER'') != ''AnalyticsServer'' or SYS_CONTEXT(''USERENV'', ''CLIENT_IDENTIFIER'') IS NULL');
 END;
 /
-
       </copy>
       ````
+      **Note:** If the `CLIENT_IDENTIFIER` is not set then it is null. Any comparison to a `NULL` is false. You must include the `IS NULL` comparison to ensure the policy expression returns to `TRUE` if the `CLIENT_IDENTIFIER` is not set to `AnalyticsServer` or is null. 
+
 
 2. As `ADMIN`, add the `CUST_CREDIT_LIMIT` column to the `REDACT_SENSITIVE_DATA` policy.
 
