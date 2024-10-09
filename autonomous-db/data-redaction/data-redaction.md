@@ -1130,7 +1130,27 @@ You can delete the data or you can drop the entire database. If you wish to drop
 
       **Expected Result:** No rows selected. 
 
-3. (optional) Instead, you can drop the Data Redaction policy and it will delete the column policies.
+3. (optional) Or, you can drop the users and the policies will be deleted with the users. Perform these steps as **`ADMIN`**. 
+
+      - Delete the `SH1_READER` schema. **Make sure you logout of SH1_READER first**
+
+         ````
+         <copy>
+         drop user sh1_reader cascade;
+         </copy>
+         ````
+
+      - Delete the `SH1` schema.
+
+         ````
+         <copy>
+         drop user sh1 cascade;
+         </copy>
+         ````
+
+         **Expected Result:** No rows selected. 
+
+4. (optional) Instead, you can drop the Data Redaction policy and it will delete the column policies.
 
       - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
 
@@ -1157,26 +1177,6 @@ You can delete the data or you can drop the entire database. If you wish to drop
          ````
          <copy>
          select * from redaction_policies;
-         </copy>
-         ````
-
-         **Expected Result:** No rows selected. 
-
-4. (optional) Or, you can drop the users and the policies will be deleted with the users. Perform these steps as **`ADMIN`**. 
-
-      - Delete the `SH1_READER` schema. **Make sure you logout of SH1_READER first**
-
-         ````
-         <copy>
-         drop user sh1_reader cascade;
-         </copy>
-         ````
-
-      - Delete the `SH1` schema.
-
-         ````
-         <copy>
-         drop user sh1 cascade;
          </copy>
          ````
 
