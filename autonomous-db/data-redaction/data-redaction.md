@@ -1101,56 +1101,7 @@ You can delete the data or you can drop the entire database. If you wish to drop
    
       **Expected Result:** `No rows selected.`
 
-2. (optional) You can delete the Data Redaction named policy expression once it is no longer in use by a column. 
-
-      - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
-
-         ````
-         <copy>
-         BEGIN
-         FOR x in (select policy_expression_name from redaction_expressions) LOOP
-         BEGIN
-            DBMS_REDACT.DROP_POLICY_EXPRESSION(policy_expression_name => x.policy_expression_name);
-         END;
-         END LOOP;
-         END;
-         /
-         </copy>
-         ````
-
-       **Expected Result:** `PL/SQL procedure successfully completed.`
-
-      - To verify the column policies have been deleted, run the following query
-
-         ````
-         <copy>
-         select * from redaction_expressions;
-         </copy>
-         ````
-
-      **Expected Result:** No rows selected. 
-
-3. (optional) Or, you can drop the users and the policies will be deleted with the users. Perform these steps as **`ADMIN`**. 
-
-      - Delete the `SH1_READER` schema. **Make sure you logout of SH1_READER first**
-
-         ````
-         <copy>
-         drop user sh1_reader cascade;
-         </copy>
-         ````
-
-      - Delete the `SH1` schema.
-
-         ````
-         <copy>
-         drop user sh1 cascade;
-         </copy>
-         ````
-
-         **Expected Result:** No rows selected. 
-
-4. (optional) Instead, you can drop the Data Redaction policy and it will delete the column policies.
+2. (optional) You can drop the Data Redaction policy and it will delete the column policies.
 
       - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
 
@@ -1181,6 +1132,57 @@ You can delete the data or you can drop the entire database. If you wish to drop
          ````
 
          **Expected Result:** No rows selected. 
+
+3. (optional) You can delete the Data Redaction named policy expression once it is no longer in use by a column or policy. 
+
+      - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
+
+         ````
+         <copy>
+         BEGIN
+         FOR x in (select policy_expression_name from redaction_expressions) LOOP
+         BEGIN
+            DBMS_REDACT.DROP_POLICY_EXPRESSION(policy_expression_name => x.policy_expression_name);
+         END;
+         END LOOP;
+         END;
+         /
+         </copy>
+         ````
+
+       **Expected Result:** `PL/SQL procedure successfully completed.`
+
+      - To verify the column policies have been deleted, run the following query
+
+         ````
+         <copy>
+         select * from redaction_expressions;
+         </copy>
+         ````
+
+      **Expected Result:** No rows selected. 
+
+
+4. (optional) Or, you can drop the users and the policies will be deleted with the users. Perform these steps as **`ADMIN`**. 
+
+      - Delete the `SH1_READER` schema. **Make sure you logout of SH1_READER first**
+
+         ````
+         <copy>
+         drop user sh1_reader cascade;
+         </copy>
+         ````
+
+      - Delete the `SH1` schema.
+
+         ````
+         <copy>
+         drop user sh1 cascade;
+         </copy>
+         ````
+
+         **Expected Result:** No rows selected. 
+
 
 5. (optional) If you are going to keep this database and you want to restore the redacted value to **`0`** when Oracle Database performs full redaction (`DBMS_REDACT.FULL`) on a column of the `NUMBER` data type. 
 
