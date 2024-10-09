@@ -143,4 +143,4 @@ Click [autonomous workflow](https://docs.oracle.com/en/cloud/paas/autonomous-dat
 ## Acknowledgements
 - **Author** - Hakim Loumi, Database Security PM
 - **Contributors** - Rene Fontcha
-- **Last Updated By/Date** - Hakim Loumi, Database Security PM - September 2021
+- **Last Updated By/Date** - Hakim Loumi, Database Security PM - September 2024
