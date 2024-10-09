@@ -829,8 +829,16 @@ END;
       ````
       **Note:** If the `CLIENT_IDENTIFIER` is not set then it is null. Any comparison to a `NULL` is false. You must include the `IS NULL` comparison to ensure the policy expression returns to `TRUE` if the `CLIENT_IDENTIFIER` is not set to `AnalyticsServer` or is null. 
 
+2. As `ADMIN`, view the Data Redaction named policy exprsesions. 
 
-2. As `ADMIN`, add the `CUST_CREDIT_LIMIT` column to the `REDACT_SENSITIVE_DATA` policy.
+      ````
+      <copy>
+select * from redaction_expressions;
+      </copy>
+      ````
+      **Expected result:** You should see one row for the `REDACT_UNLESS_ANALYTICS` named policy expression you just created. 
+
+3. As `ADMIN`, add the `CUST_CREDIT_LIMIT` column to the `REDACT_SENSITIVE_DATA` policy.
 
       ````
       <copy>
@@ -847,7 +855,9 @@ END;
 </copy>
       ````
 
-3. Apply the **named data redaction policy expression** to the `CUST_CREDIT_LIMIT` column
+      **Note:** If you receive an error like _`Error at Line: 7 Column: 0`_ make sure you highlight all 10 lines, in Database Actions, and run the SQL statement again. You should see `PL/SQL procedure successfully completed.`
+
+4. Apply the **named data redaction policy expression** to the `CUST_CREDIT_LIMIT` column
 
       ````
       <copy>
@@ -1181,22 +1191,18 @@ Oracle Data Redaction provides controls to prevent unauthorized users from acces
    ![](./images/dr-concept.png " ")
 
 
-Oracle Data Redaction secures existing database environments transparently, eliminating costly and time-consuming application changes.
+Oracle Data Redaction secures existing database environments transparently, minimizing costly and time-consuming application changes.
 
 Oracle Data Redaction provides a set of PL/SQL interfaces and packages that let you configure these components.
-In general, the first step you take is to identify sensitive data. You can use **Oracle DBSAT**, **Oracle Data Safe**, or a third-party product to do this. Next, you wil use the Data Redaction PL/SQL APIs to create and manage Data REdaction policies and named policy expressions. 
-
-### **Benefits of using Data Redaction**
-- TEST
-- TEST
+In general, the first step you take is to identify sensitive data. You can use **Oracle DBSAT**, **Oracle Data Safe**, or a third-party product to do this. Then, you will use the Data Redaction PL/SQL APIs to create and manage Data Redaction policies and named policy expressions. 
 
 ## Want to Learn More?
 
 Technical Documentation:
-  - [Oracle Data Redaction 23ai](https://docs-uat.us.oracle.com/en/database/oracle/oracle-database/23/dbred/toc.htm)
+  - [Oracle Data Redaction 23ai](https://docs.us.oracle.com/en/database/oracle/oracle-database/23/dbred/toc.htm)
 
 Video:
-  - *Understanding Oracle Data Redaction (March 2019)* [](youtube:oVidZw7yWIQ)
+  - *Data Redaction - Extend it to multiple columns and Analytics (October 2023)*" [](youtube:Q0K2caAtGIY)
 
 ## Acknowledgements
 - **Author** - Richard C. Evans, Database Security PM
