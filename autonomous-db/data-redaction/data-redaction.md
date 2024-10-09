@@ -311,7 +311,7 @@ This lab assumes you have:
 
        ![](./images/adb-dr_015a.png "In SQL, click Go to launch the SQL application")
 
-12. Paste the following SQL queries to ensure **`SH1_READER`** has access to the **`SH1`* tables.
+12. Paste the following SQL queries to ensure **`SH1_READER`** has access to the **`SH1`** tables.
 
       ````
       <copy>
@@ -365,7 +365,7 @@ You will be using some of the procedures in the `DBMS_REDACT` PL/SQL package in 
 
 
 
-1. Open the SQL Worksheet as the *`ADMIN`* user (as reminder, the password is `WElcome_123#`)
+1. Open the SQL Worksheet as the **`ADMIN`** user (as reminder, the password is `WElcome_123#`)
 
 2. View `ADMIN`'s session privileges
 
@@ -376,7 +376,7 @@ You will be using some of the procedures in the `DBMS_REDACT` PL/SQL package in 
       ````
    **Expected Result:** Notice that **`ADMIN`** has the privilege, **`EXEMPT REDACTION POLICY`**, which exempts `ADMIN` from Data Redaction policies. 
 
-2. Run the same query as **`SH1_READER` to verify this user does not have the `EXEMPT REDACXTION POLICY` privilege. 
+2. Run the same query as **`SH1_READER`** to verify this user does not have the `EXEMPT REDACXTION POLICY` privilege. 
 
       ````
       <copy>
@@ -592,7 +592,7 @@ You have completed this task. Next, you will move on to more advanced Data Redac
 
 ## Task 3: Add a built-in regular expression redaction 
 
-In this task, you will use a built-in regular expression function to redact data on a columns. Oracle Data Redaction has several built-in regular expression redaction functions available to you. 
+In this task, you will use a built-in regular expression function to redact data on a column. Oracle Data Redaction has several built-in regular expression redaction functions available to you. 
 
 When creating a Data Redaction policy using regular expressions, your `DBMS_REDACT.ADD_POLICY` procedure will include the `REGEXP_PATTERN` and `REGEXP_REPLACE_STRING` parameters for each column.  For rows where the `REGEXP_PATTERN` fails to match, Data Redaction performs `DBMS_REDACT.FULL` redaction. This mitigates the risk of a mistake in the `REGEXP_PATTERN` which causes the regular expression to fail to match all of the values in the column, from showing the actual data for those rows which it failed to match.
 
