@@ -13,7 +13,8 @@ Test
 
 ### Video Preview
 
-Watch a preview of "*LiveLabs - Prevent sensitive data in Autonomous Databases with Data Redaction (October 2024)*" [](youtube:TestTest)
+Watch a preview of "*Data Redaction - Extend it to multiple columns and Analytics
+ (October 2023)*" [](youtube:Q0K2caAtGIY)
 
 Watch the video below for a quick walk-through of the lab.
 [Oracle Data Redaction on an Autonomous Database](videohub:1_hpawkio9)
