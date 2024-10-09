@@ -370,7 +370,7 @@ You will be using some of the procedures in the `DBMS_REDACT` PL/SQL package in 
 
       ````
       <copy>
-      SELECT * FROM session_privs ORDER BY 1;
+      SELECT * FROM session_privs where privilege like '%EXEMPT%' order by 1;
       </copy>
       ````
    **Expected Result:** Notice that **`ADMIN`** has the privilege, **`EXEMPT REDACTION POLICY`**, which exempts `ADMIN` from Data Redaction policies. 
@@ -800,10 +800,10 @@ END;
          103         AMEX
       ````
 
-      **Note:** The `CUSTOMER_SUMMARY` output does not show the asterisks you see when querying the table directly. This is because the view, `CUSTOMER_SUMMARY` uses an Oracle SQL function (`CASE`) to collapse five columns into a single column. To ensure actual data isn't exposed unintentionally, Data Redaction uses a full redaction policy when a SQL function is used. 
+      **Note:** The `CUSTOMER_SUMMARY` output does not show the asterisks you see when querying the table directly. This is because the `CUSTOMER_SUMMARY` view uses an Oracle SQL function (`CASE`) to collapse five columns into a single column. To ensure actual data isn't exposed unintentionally, Data Redaction uses a full redaction policy when a SQL function is used. 
 
 
-You have demonstrated how you can create different redaction policies and use different regular expression and partial redaction functions.  You have also learned there are times when Data Redaction applies full redaction for performance or security reasons. 
+You have demonstrated how you can create different redaction policies and use different regular expression and partial redaction functions.  You have also learned there are times when Data Redaction applies full redaction for security reasons. 
 
 
 ## Task 5: Run analytics and advanced queries against your redacted data
@@ -819,14 +819,15 @@ For example, in this task, you will show the `CUST_CREDIT_LIMIT` column values t
       ````
       <copy>
 BEGIN
-  DBMS_REDACT.CREATE_POLICY_EXPRESSION(
-    policy_expression_name => 'REDACT_UNLESS_ANALYTICS',
-    expression => 'SYS_CONTEXT(''USERENV'', ''CLIENT_IDENTIFIER'') != ''AnalyticsServer''');
+DBMS_REDACT.CREATE_POLICY_EXPRESSION(
+policy_expression_name => 'REDACT_UNLESS_ANALYTICS',
+expression => 'SYS_CONTEXT(''USERENV'', ''CLIENT_IDENTIFIER'') != ''AnalyticsServer'' or SYS_CONTEXT(''USERENV'', ''CLIENT_IDENTIFIER'') IS NULL');
 END;
 /
-
       </copy>
       ````
+      **Note:** If the `CLIENT_IDENTIFIER` is not set then it is null. Any comparison to a `NULL` is false. You must include the `IS NULL` comparison to ensure the policy expression returns to `TRUE` if the `CLIENT_IDENTIFIER` is not set to `AnalyticsServer` or is null. 
+
 
 2. As `ADMIN`, add the `CUST_CREDIT_LIMIT` column to the `REDACT_SENSITIVE_DATA` policy.
 
@@ -889,7 +890,7 @@ END;
       </copy>
    ````
 
-5. As `SH1_READER`, set, and verify, the client identifier and re-run the query to demonstrate that `SH1_READER` will now see the `CUST_CREDIT_LIMIT` column data.
+5. As `SH1_READER`, set and verify the client identifier. 
 
       ````
       <copy>
@@ -904,61 +905,7 @@ END;
       </copy>
       ````
 
-      ````
-      <copy>
-   WITH avg_credit_limits AS (
-      SELECT cust_postal_code, AVG(cust_credit_limit) AS avg_credit_limit
-      FROM sh1.customers
-      WHERE cust_postal_code IN ('55787', '63736', '38082')
-      AND cust_credit_limit IS NOT NULL
-      GROUP BY cust_postal_code
-   )
-   SELECT 
-      c.cust_postal_code,
-      COUNT(*) AS total_customer_count,
-      COUNT(CASE WHEN c.cust_credit_limit < acl.avg_credit_limit THEN 1 END) AS num_customers_below_avg,
-      COUNT(CASE WHEN c.cust_credit_limit > acl.avg_credit_limit THEN 1 END) AS num_customers_above_avg,
-      MAX(c.cust_credit_limit) AS highest_credit_limit,
-      ROUND(MIN(c.cust_credit_limit), 0) AS lowest_credit_limit,
-      ROUND(AVG(c.cust_credit_limit), 0) AS average_credit_limit
-   FROM sh1.customers c
-   JOIN avg_credit_limits acl ON c.cust_postal_code = acl.cust_postal_code
-   WHERE c.cust_postal_code IN ('55787', '63736', '38082')
-   GROUP BY c.cust_postal_code
-   ORDER BY c.cust_postal_code;
-      </copy>
-      ````
-
-2. As `ADMIN`, remove the policy assigned to the `CUST_POSTAL_CODE` column. 
-
-      ````
-      <copy>
-BEGIN
- DBMS_REDACT.ALTER_POLICY (
-   object_schema          => 'SH1',
-   object_name            => 'CUSTOMERS',
-   policy_name            => 'REDACT_SENSITIVE_DATA',
-   column_name            => 'CUST_POSTAL_CODE',
-   action                 => DBMS_REDACT.DROP_COLUMN);
-END;
-/
-</copy>
-      ````
-
-5. As `SH1_READER`, set, and verify, the client identifier and re-run the query to demonstrate that `SH1_READER` will now see the `CUST_POSTAL_CODE` column data but not the specific credit scores for the groups of customers. 
-
-      ````
-      <copy>
-   SELECT SYS_CONTEXT('USERENV', 'CLIENT_IDENTIFIER') AS client_identifier FROM DUAL;
-
-   BEGIN
-   DBMS_SESSION.SET_IDENTIFIER('AnalyticsServer');
-   END;
-   /
-
-   SELECT SYS_CONTEXT('USERENV', 'CLIENT_IDENTIFIER') AS client_identifier FROM DUAL;
-      </copy>
-      ````
+6. Finally, as `SH1_READER` re-run the analytics query and your user will see actual data for `HIGHEST_CREDIT_LIMIT`, `LOWEST_CREDIT_LIMIT` and `AVERAGE_CREDIT_LIMIT` columns.
 
       ````
       <copy>
@@ -1100,36 +1047,7 @@ You can delete the data or you can drop the entire database. If you wish to drop
    
       **Expected Result:** `No rows selected.`
 
-2. (optional) You can delete the Data Redaction named policy expression once it is no longer in use by a column. 
-
-      - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
-
-         ````
-         <copy>
-         BEGIN
-         FOR x in (select policy_expression_name from redaction_expressions) LOOP
-         BEGIN
-            DBMS_REDACT.DROP_POLICY_EXPRESSION(policy_expression_name => x.policy_expression_name);
-         END;
-         END LOOP;
-         END;
-         /
-         </copy>
-         ````
-
-       **Expected Result:** `PL/SQL procedure successfully completed.`
-
-      - To verify the column policies have been deleted, run the following query
-
-         ````
-         <copy>
-         select * from redaction_expressions;
-         </copy>
-         ````
-
-      **Expected Result:** No rows selected. 
-
-3. (optional) Instead, you can drop the Data Redaction policy and it will delete the column policies.
+2. (optional) You can drop the Data Redaction policy and it will delete the column policies.
 
       - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
 
@@ -1161,6 +1079,36 @@ You can delete the data or you can drop the entire database. If you wish to drop
 
          **Expected Result:** No rows selected. 
 
+3. (optional) You can delete the Data Redaction named policy expression once it is no longer in use by a column or policy. 
+
+      - As **`ADMIN`**, delete the named expression policies. This is an anonymous PL/SQL block that will iterate through all Data redaction named expression policies and delete them. 
+
+         ````
+         <copy>
+         BEGIN
+         FOR x in (select policy_expression_name from redaction_expressions) LOOP
+         BEGIN
+            DBMS_REDACT.DROP_POLICY_EXPRESSION(policy_expression_name => x.policy_expression_name);
+         END;
+         END LOOP;
+         END;
+         /
+         </copy>
+         ````
+
+       **Expected Result:** `PL/SQL procedure successfully completed.`
+
+      - To verify the column policies have been deleted, run the following query
+
+         ````
+         <copy>
+         select * from redaction_expressions;
+         </copy>
+         ````
+
+      **Expected Result:** No rows selected. 
+
+
 4. (optional) Or, you can drop the users and the policies will be deleted with the users. Perform these steps as **`ADMIN`**. 
 
       - Delete the `SH1_READER` schema. **Make sure you logout of SH1_READER first**
@@ -1180,6 +1128,7 @@ You can delete the data or you can drop the entire database. If you wish to drop
          ````
 
          **Expected Result:** No rows selected. 
+
 
 5. (optional) If you are going to keep this database and you want to restore the redacted value to **`0`** when Oracle Database performs full redaction (`DBMS_REDACT.FULL`) on a column of the `NUMBER` data type. 
 
