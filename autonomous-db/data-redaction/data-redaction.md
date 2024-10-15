@@ -9,9 +9,7 @@ Oracle Data Redaction enables you to obscure data that is returned from queries 
 
 ![](./images/dr-concept.png "image of data redaction concept")
 
-
-
-*Estimated Time:* 55 minutes
+*Estimated Time:* 60 minutes
 
 *Version tested in this lab:* Oracle Autonomous Database 23ai
 
@@ -277,7 +275,7 @@ This lab assumes you have:
 
    - You will see an incognito window. Paste your URL into the browser window.
 
-       ![](./images/adb-dr_010a.png "Paste teh URL into your incognito browser window.")
+       ![](./images/adb-dr_010a.png "Paste the URL into your incognito browser window.")
 
    - Click **`Go`** for **SQL Developer Web**
 

@@ -27,7 +27,7 @@ Watch the video below for a quick walk-through of the lab.
 
 3. The following steps apply similarly to either Autonomous Data Warehouse (ADW) or Autonomous Transaction Processing (ATP). So please **click the provisioning of Autonomous Database of your choice** (here we choose an Oracle Autonomous Data Warehouse but again you can also choose Oracle Autonomous Transaction Processing if you prefer).
 
-    ![](./images/adb-set_002a.png " ")
+    ![](./images/adb-set_002a.png "Click Oracle Database then Autonomous Transaction Processing.")
 
 4. From the **Compartment** drop-down list, select your compartment
 
@@ -55,20 +55,19 @@ Watch the video below for a quick walk-through of the lab.
 7. Configure the database:
 
     - **Always Free** - Select this option by moving the slider to the right
-    - **Database version** - Select *`23ai`* 
-    
-         ![](./images/adb-set_006a.png " ")
+    - **Database version** - Select **`23ai`** 
 
+        ![](./images/adb-set_006a.png "Select always free and 23ai.")
 
 8. Create administrator credentials:
 
     - **Password** and **Confirm Password** - Specify a password for the ADMIN database user and jot it down. The password must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character. It cannot contain your username or the double quote (") character. For example : *`WElcome_123#`*
 
-        ````
+        ```
         <copy>WElcome_123#</copy>
-        ````
+        ```
 
-        ![](./images/adb-set_007a.png " ")
+        ![](./images/adb-set_007a.png "Enter the password for the administrator account.")
 
 9. Choose the network access and the license type:
 
@@ -76,13 +75,13 @@ Watch the video below for a quick walk-through of the lab.
     - **License Type** - Select *`License Included`*
     - **Protect Contacts** - You can leave this blank
 
-         ![](./images/adb-set_008a.png " ")
+         ![](./images/adb-set_008a.png "Choose network access of secure access from anywhere, choose license included and click create Autonomous Database.")
 
 10. Click [**Create Autonomous Database**]
 
 11.  Your instance will begin provisioning. In a few minutes, the state will turn from Provisioning to Available. At this point, your Autonomous Database is ready to use! Have a look at your instance's details here including its name, database version, OCPU count, and storage size.
 
-    ![](./images/adb-set_009a.png " ")
+    ![](./images/adb-set_009a.png "After a few minutes, your ATP will show green and your database will be available to use.")
 
 
 ## Task 2: Launch SQL and familiarize yourself with the environment
@@ -91,47 +90,47 @@ Although you can connect to your Autonomous Database using local PC desktop tool
 
 1. In your **`ADBSecurity`** database's details page, click the **Database actions** button then click **SQL**. This will open a SQL worksheet.
 
-    ![](./images/adb-set_010a.png " ")
+    ![](./images/adb-set_010a.png "Click Database actions then click SQL.")
 
 2. The SQL worksheet provides you the ability to run SQL statements against your Autonomous Database. Click the **X** on the tutorial and the warning icons. If this was a production environment, you should follow the tutorial and then create your own, named, account instead of using the **`ADMIN`** database user. 
 
-    ![](./images/adb-set_011a.png " ")
+    ![](./images/adb-set_011a.png "Click Open Database Actions.")
 
 3. The Database Actions SQL worksheet page opens and is ready for you to write or paste your commands. 
 
-    ![](./images/adb-set_014a.png " ")
+    ![](./images/adb-set_014a.png "You will be on the Database Actions SQL worksheet. You can write SQL here.")
 
 4. In the SQL worksheet, copy and paste the following SQL commands and run them. 
 
     - Query the current user
 
-        ````
+        ```
         <copy>
         select user from dual;
         </copy>
-        ````
+        ```
 
-        ![](./images/adb-set_017a.png " ")
+        ![](./images/adb-set_017a.png "To run the above command paste it into the worksheet and press the green forward arrow button or press F5.")
 
         **Note:** You can hide the left-hand **Navigator** pane by clicking on the **`<`** icon highlighted in red. 
 
     - Query the current user's session roles and privileges
 
-        ````
+        ```
         <copy>
         select * from session_roles order by 1;
         </copy>
-        ````
+        ```
 
-        ![](./images/adb-set_018a.png " ")
+        ![](./images/adb-set_018a.png "After running the query, you will see the session roles AMDIN has.")
 
-        ````
+        ```
         <copy>
         select * from session_privs order by 1;
         </copy>
-        ````
+        ```
 
-        ![](./images/adb-set_019a.png " ")
+        ![](./images/adb-set_019a.png "After running the query, you will see the session privileges AMDIN has.")
         
 
 5. **Your environment is ready to use!** and you may now proceed to the next lab
@@ -141,6 +140,6 @@ Although you can connect to your Autonomous Database using local PC desktop tool
 Click [autonomous workflow](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/autonomous-workflow.html#GUID-5780368D-6D40-475C-8DEB-DBA14BA675C3) for documentation on the typical workflow for using Autonomous Data Warehouse.
 
 ## Acknowledgements
-- **Author** - Hakim Loumi, Database Security PM
+- **Author** - Richard C. Evans, Hakim Loumi
 - **Contributors** - Rene Fontcha
-- **Last Updated By/Date** - Hakim Loumi, Database Security PM - September 2024
+- **Last Updated By/Date** - Richard C. Evans, Database Security PM - October 2024
