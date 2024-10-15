@@ -26,5 +26,5 @@ You may now proceed to the next lab.
 
 ## Acknowledgements
 - **Author** - Richard C. Evans, Database Security PM
-- **Contributors** - Hakim Loumi, Database Security PM
+- **Contributors** - Anita Patel, Anna Haikl, Hakim Loumi
 - **Last Updated By/Date** - Richard C. Evans, Database Security PM - September 2024
